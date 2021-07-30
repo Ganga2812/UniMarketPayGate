@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674878896006",
+    "project_id": "groupproj02-market",
+    "storage_bucket": "groupproj02-market.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674878896006:android:6bf0c1e7f92023e6c51e07",
+        "android_client_info": {
+          "package_name": "com.chamewin.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674878896006-08fgfv9m2hdv6ejke1bf5akvo47q4ghl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg5fNVbQb_bk8Gm_eitsyGTJ6IDoEnEns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674878896006-08fgfv9m2hdv6ejke1bf5akvo47q4ghl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
