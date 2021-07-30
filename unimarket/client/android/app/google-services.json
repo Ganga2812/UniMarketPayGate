@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "826404393953",
+    "firebase_url": "https://unimarket-b7de1-default-rtdb.firebaseio.com",
     "project_id": "unimarket-b7de1",
     "storage_bucket": "unimarket-b7de1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:826404393953:android:b467b2d39e218bac4df8a0",
+        "mobilesdk_app_id": "1:826404393953:android:905292442a1ab7824df8a0",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.chamewin.client"
         }
       },
       "oauth_client": [
