@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+
+
 
 import '../wrapper.dart';
 
@@ -44,63 +47,36 @@ class _PaymentState extends State<Payment> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            CreditCardWidget(
-              cardNumber: cardNumber,
-              expiryDate: expiryDate,
-              height: 210,
-              cardHolderName: cardHolderName,
-              cvvCode: cvvNumber,
-              showBackView: showBackView,
-              cardBgColor: Colors.greenAccent,
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Pay Now'),
+          onPressed: () async {
+            var request = BraintreeDropInRequest(
+              tokenizationKey: 'sandbox_pg2xg5z3_s4b9d87p23cnwc3k',
+              paypalRequest: BraintreePayPalRequest(
+                amount: '5.00',
+                displayName: 'UniMarket'
               ),
-              animationDuration: Duration(milliseconds: 1200),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: CreditCardForm(
-                  onCreditCardModelChange: onCreditCardModel,
-                  cursorColor: Colors.red,
-                  themeColor: Colors.black,
-                  cardHolderName: '',
-                  cardNumber: '',
-                  cvvCode: '',
-                  expiryDate: '',
-                  formKey: null,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 250,
-              child: RaisedButton(
-                  color: Color(0xFF29BF12),
-                  onPressed: () async {
-                    await FirebaseFirestore.instance
-                        .runTransaction((transaction) async {
-                          transaction.delete(documentReference);
-                        })
-                        .then((value) => print("Deleted Listing"))
-                        .catchError((error) => print("Failed delete listing"));
+              cardEnabled: true
+            );
+            BraintreeDropInResult? result = await BraintreeDropIn.start(request);
+            if (result != null) {
+              print(result.paymentMethodNonce.description);
+              print(result.paymentMethodNonce.nonce);
+              
+            }
+            await FirebaseFirestore.instance
+                  .runTransaction((transaction) async {
+                    transaction.delete(documentReference);
+                  })
+                  .then((value) => print("Deleted Listing"))
+                  .catchError((error) => print("Failed delete listing"));
 
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => Wrapper()));
-                  },
-                  child: Text("Pay",
-                      style:
-                          TextStyle(color: Color(0xFFFFFFFF), fontSize: 17))),
-            ),
-          ],
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => Wrapper()));
+          },
         ),
-      ),
+      )
     );
   }
 }
