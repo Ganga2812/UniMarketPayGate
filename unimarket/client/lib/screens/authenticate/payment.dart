@@ -33,14 +33,14 @@ class _PaymentState extends State<Payment> {
   String routingNumber = '';
   String address = '';
   String paypal = '';
-  var documentID = FirebaseAuth.instance.currentUser!.uid;
+  //var documentID = .id;
   
 
 
 
   void getUserNameAndUID(documentId) {
     print(price);
-    print(documentID);
+    //print(documentID);
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
     users.doc(documentId).get().then((DocumentSnapshot documentSnapshot) {
       setState(() => accountNumber = documentSnapshot.get('accountNumber'));
@@ -84,7 +84,7 @@ class _PaymentState extends State<Payment> {
         child: ElevatedButton(
           child: Text('Pay Now'),
           onPressed: () async {
-            getUserNameAndUID(documentID);
+            getUserNameAndUID(id);
             var request = BraintreeDropInRequest(
               tokenizationKey: 'sandbox_pg2xg5z3_s4b9d87p23cnwc3k',
               paypalRequest: BraintreePayPalRequest(
