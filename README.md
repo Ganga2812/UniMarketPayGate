@@ -36,7 +36,6 @@ This is an ecommerce app built for university students to allow them to sell and
 
 ## IMPORTANT - Demo Videos 
 * Android app demo: 
-https://youtu.be/t7CIVwdAb7E
 
 
 
