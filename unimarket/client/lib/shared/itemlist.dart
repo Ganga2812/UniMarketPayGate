@@ -133,7 +133,7 @@ class _ItemListState extends State<ItemList> {
                           //   textAlign: TextAlign.left,
                           // ),
                           onTap: () {
-                            alert(context, doc['Seller ID']);
+                            alert(context, doc['Seller ID'], '${doc['Price']}');
                           },
                         ),
                       ],
@@ -148,7 +148,7 @@ class _ItemListState extends State<ItemList> {
     );
   }
 
-  void alert(context, uid) async {
+  void alert(context, uid, price) async {
     return showDialog(
       context: context,
       builder: (BuildContext bc) {
@@ -176,7 +176,7 @@ class _ItemListState extends State<ItemList> {
             FlatButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => Payment(value: uid)));
+                    builder: (context) => Payment(id: uid, price: price)));
               },
               child: Text(
                 "Yes",

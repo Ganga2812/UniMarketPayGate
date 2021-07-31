@@ -1,6 +1,8 @@
 import 'package:client/services/auth.dart';
 import 'package:client/shared/constants.dart';
 import 'package:client/shared/loading.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -25,6 +27,10 @@ class _RegisterState extends State<Register> {
   String lname = '';
   String email = '';
   String password = '';
+  String accountNumber = '';
+  String routingNumber = '';
+  String address = '';
+  String paypal = '';
   String error = '';
 
   @override
@@ -134,14 +140,76 @@ class _RegisterState extends State<Register> {
                             error,
                             style: TextStyle(color: Colors.red, fontSize: 14),
                           ),
+                          Text(
+                            'Seller Information',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
                           SizedBox(
                             height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() => accountNumber = value);
+                            },
+                            decoration: textInputDecoration.copyWith(
+                              labelText: 'Account Number',
+                              labelStyle: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                           SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() => routingNumber = value);
+                            },
+                            decoration: textInputDecoration.copyWith(
+                              labelText: 'Routing Number',
+                              labelStyle: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                           SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() => paypal = value);
+                            },
+                            decoration: textInputDecoration.copyWith(
+                              labelText: 'Paypal Email',
+                              labelStyle: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                           SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() => address = value);
+                            },
+                            decoration: textInputDecoration.copyWith(
+                              labelText: 'Address',
+                              labelStyle: TextStyle(
+                                color: Colors.black, 
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
                           ),
                           SizedBox(
                             width: 250,
                             child: RaisedButton(
                               onPressed: () async {
+                                
                                 if (_formKey.currentState!.validate()) {
+                                  CollectionReference users = FirebaseFirestore.instance.collection('Users');
                                   setState(() => loading = true);
                                   dynamic result =
                                       await _auth.registerWithEmailAndPassword(
@@ -151,6 +219,19 @@ class _RegisterState extends State<Register> {
                                       error = 'Please supply a valid email';
                                       setState(() => loading = false);
                                     });
+                                  } else {
+                                    var value = FirebaseAuth.instance.currentUser!.uid;
+                                    print(value);
+                                    users
+                                    .doc(value)
+                                    .update({
+                                      'accountNumber': accountNumber, // John Doe
+                                      'routingNumber': routingNumber, // Stokes and Sons
+                                      'paypal': paypal,
+                                      'address': address // 42
+                                    })
+                                    .then((value) => print("User Added"))
+                                    .catchError((error) => print("Failed to add user: $error"));
                                   }
                                 }
                               },
