@@ -35,7 +35,7 @@ This is an ecommerce app built for university students to allow them to sell and
 * The program should execute
 
 ## IMPORTANT - Demo Videos 
-* Android app demo: 
+* Android app demo of added payment gateway feature: https://youtu.be/Nh-TpuKEWdQ
 
 
 
